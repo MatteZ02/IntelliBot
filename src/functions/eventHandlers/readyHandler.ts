@@ -1,4 +1,4 @@
-import Client from "../../controller/Client";
+import Client from "../../controller/client";
 import logs from "../modules/logs";
 
 export default async function readyHandler(client: Client) {

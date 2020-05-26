@@ -1,4 +1,4 @@
-import { Command } from "../controller/Command";
+import { Command } from "../controller/command";
 
 const commands: Command[] = [];
 
