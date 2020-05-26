@@ -1,4 +1,3 @@
-import Discord from "discord.js";
 import Client from "../../controller/Client";
 import logs from "../modules/logs";
 
