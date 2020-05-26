@@ -1,0 +1,33 @@
+{
+  "name": "IntelliBot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf ./build && tsc",
+    "start:dev": "nodemon",
+    "start": "npm run build && node build/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MatteZ02/Musix-V4.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MatteZ02/Musix-V4/issues"
+  },
+  "homepage": "https://github.com/MatteZ02/Musix-V4#readme",
+  "devDependencies": {
+    "@types/node": "^14.0.5",
+    "nodemon": "^2.0.4",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "@types/ws": "^7.2.4",
+    "discord.js": "^12.2.0"
+  }
+}
