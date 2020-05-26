@@ -1,5 +1,5 @@
 import Discord, { Guild } from "discord.js";
-import { Command } from "./Command";
+import { Command } from "./command";
 import config from "../config/config";
 
 class Client extends Discord.Client {
