@@ -1,4 +1,4 @@
-import Discord, { Guild } from "discord.js";
+import Discord from "discord.js";
 import { Command } from "./command";
 import config from "../config/config";
 
