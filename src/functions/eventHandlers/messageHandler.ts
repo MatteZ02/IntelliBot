@@ -29,12 +29,4 @@ export default async function messageHandler(
       warnMsg.delete();
     }, 5000);
   }
-  if (msg.content.startsWith("+check")) {
-    const warnMsg = await msg.channel.send(
-      "Bot commands are not allowed in this channel!"
-    );
-    setTimeout(() => {
-      warnMsg.delete();
-    }, 5000);
-  }
 }
