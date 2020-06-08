@@ -7,7 +7,14 @@ export default async (client: Client) => {
   ) as Discord.TextChannel;
 
   client.on("guildMemberAdd", async (member) => {
-    if (!member || !member.user || !LogsChannel || !client.user) return;
+    if (
+      !member ||
+      !member.user ||
+      !LogsChannel ||
+      !client.user ||
+      member.user.bot
+    )
+      return;
     let embed = new Discord.MessageEmbed()
       .setAuthor(`Member Joined`, member.user.displayAvatarURL())
       .setDescription(`${member}\n${member.user.tag}`)
@@ -18,7 +25,14 @@ export default async (client: Client) => {
     return LogsChannel.send(embed);
   });
   client.on("guildMemberRemove", async (member) => {
-    if (!member || !member.user || !LogsChannel || !client.user) return;
+    if (
+      !member ||
+      !member.user ||
+      !LogsChannel ||
+      !client.user ||
+      member.user.bot
+    )
+      return;
     let embed = new Discord.MessageEmbed()
       .setAuthor(`Member Left`, member.user.displayAvatarURL())
       .setDescription(`${member}\n${member.user.tag}\nbot: ${member.user.bot}`)
@@ -30,7 +44,8 @@ export default async (client: Client) => {
   });
   client.on("guildBanAdd", async (guild, user) => {
     let member = guild.members.cache.first();
-    if (!member || !member.user || !LogsChannel || !client.user) return;
+    if (!member || !member.user || !LogsChannel || !client.user || user.bot)
+      return;
     let embed = new Discord.MessageEmbed()
       .setAuthor(`Member Banned`, user.displayAvatarURL())
       .setDescription(`${user}\n${user.tag}\nbot: ${user.bot}`)
@@ -42,7 +57,8 @@ export default async (client: Client) => {
   });
   client.on("guildBanRemove", async (guild, user) => {
     let member = guild.members.cache.first();
-    if (!member || !member.user || !LogsChannel || !client.user) return;
+    if (!member || !member.user || !LogsChannel || !client.user || user.bot)
+      return;
     let embed = new Discord.MessageEmbed()
       .setAuthor(`Member Unbanned`, user.displayAvatarURL())
       .setDescription(`${user}\n${user.tag}\nbot: ${user.bot}`)
@@ -143,7 +159,8 @@ export default async (client: Client) => {
       !newState ||
       !oldState.member ||
       !newState.member ||
-      !client.user
+      !client.user ||
+      newState.member.user.bot
     )
       return;
     let newUserChannel = newState.channel;
