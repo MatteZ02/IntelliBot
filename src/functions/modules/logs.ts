@@ -152,49 +152,6 @@ export default async (client: Client) => {
     }
     return LogsChannel.send(embed);
   });
-  client.on("voiceStateUpdate", async (oldState, newState) => {
-    if (
-      !LogsChannel ||
-      !oldState ||
-      !newState ||
-      !oldState.member ||
-      !newState.member ||
-      !client.user ||
-      newState.member.user.bot
-    )
-      return;
-    let newUserChannel = newState.channel;
-    let oldUserChannel = oldState.channel;
-
-    if (oldUserChannel && !newUserChannel) {
-      let embed = new Discord.MessageEmbed()
-        .setAuthor(
-          `${oldState.member.user.tag}`,
-          oldState.member.user.displayAvatarURL()
-        )
-        .setDescription(
-          `**${oldState.member} left voice channel #${oldUserChannel.name}**`
-        )
-        .setTimestamp()
-        .setColor(0xff0000)
-        .setFooter(`ID: ${oldState.member.id}`, client.user.displayAvatarURL());
-      LogsChannel.send(embed);
-    }
-    if (newUserChannel) {
-      let embed = new Discord.MessageEmbed()
-        .setAuthor(
-          `${newState.member.user.tag}`,
-          newState.member.user.displayAvatarURL()
-        )
-        .setDescription(
-          `**${newState.member} joined voice channel #${newUserChannel.name}**`
-        )
-        .setTimestamp()
-        .setColor(0x00fff7)
-        .setFooter(`ID: ${newState.member.id}`, client.user.displayAvatarURL());
-      LogsChannel.send(embed);
-    }
-  });
   client.on("guildMemberUpdate", async (oldMember, newMember) => {
     if (
       !newMember ||
