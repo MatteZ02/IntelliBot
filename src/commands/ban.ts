@@ -1,4 +1,4 @@
-import { Command } from "../controller/Command";
+import { Command } from "../controller/command";
 import Client from "../controller/client";
 import Discord from "discord.js";
 
