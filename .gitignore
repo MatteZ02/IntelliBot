@@ -1,2 +1,4 @@
-/node_modules
 package-lock.json
+/src/config/serviceAccount.json
+/src/config/serviceAccount.ts
+node_modules

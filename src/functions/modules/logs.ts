@@ -166,25 +166,45 @@ export default async (client: Client) => {
       let role = oldMember.roles.cache
         .filter((r) => !newMember.roles.cache.has(r.id))
         .map((e) => e);
-      let embed = new Discord.MessageEmbed()
-        .setAuthor(`${newMember.user.tag}`, newMember.user.displayAvatarURL())
-        .setDescription(
-          `${newMember} was removed from the \`${role[0].name}\` role`
-        )
-        .setTimestamp()
-        .setColor(0xff0000)
-        .setFooter(`ID: ${newMember.id}`, client.user.displayAvatarURL());
+      let embed;
+      if (role[0].id === "608365682291376128") {
+        embed = new Discord.MessageEmbed()
+          .setAuthor(`${newMember.user.tag}`, newMember.user.displayAvatarURL())
+          .setDescription(`${newMember} was unmuted!`)
+          .setTimestamp()
+          .setColor("#4F545C")
+          .setFooter(`ID: ${newMember.id}`, client.user.displayAvatarURL());
+        return LogsChannel.send(embed);
+      } else
+        embed = new Discord.MessageEmbed()
+          .setAuthor(`${newMember.user.tag}`, newMember.user.displayAvatarURL())
+          .setDescription(
+            `${newMember} was removed from the \`${role[0].name}\` role`
+          )
+          .setTimestamp()
+          .setColor(0xff0000)
+          .setFooter(`ID: ${newMember.id}`, client.user.displayAvatarURL());
       return LogsChannel.send(embed);
     } else if (newMember.roles.cache.size > oldMember.roles.cache.size) {
       let role = newMember.roles.cache
         .filter((r) => !oldMember.roles.cache.has(r.id))
         .map((e) => e);
-      let embed = new Discord.MessageEmbed()
-        .setAuthor(`${newMember.user.tag}`, newMember.user.displayAvatarURL())
-        .setDescription(`${newMember} was given the \`${role[0].name}\` role`)
-        .setTimestamp()
-        .setColor(0x23ff00)
-        .setFooter(`ID: ${newMember.id}`, client.user.displayAvatarURL());
+      let embed;
+      if (role[0].id === "608365682291376128") {
+        embed = new Discord.MessageEmbed()
+          .setAuthor(`${newMember.user.tag}`, newMember.user.displayAvatarURL())
+          .setDescription(`${newMember} was muted!`)
+          .setTimestamp()
+          .setColor("#4F545C")
+          .setFooter(`ID: ${newMember.id}`, client.user.displayAvatarURL());
+        return LogsChannel.send(embed);
+      } else
+        embed = new Discord.MessageEmbed()
+          .setAuthor(`${newMember.user.tag}`, newMember.user.displayAvatarURL())
+          .setDescription(`${newMember} was given the \`${role[0].name}\` role`)
+          .setTimestamp()
+          .setColor(0x23ff00)
+          .setFooter(`ID: ${newMember.id}`, client.user.displayAvatarURL());
       return LogsChannel.send(embed);
     }
     if (oldMember.nickname !== newMember.nickname) {

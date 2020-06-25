@@ -1,27 +1,21 @@
 import Discord, { PermissionString } from "discord.js";
-import MusixClient from "./client";
+import Client from "./client";
 
 interface CommandProps {
   name: string;
-  usage: string;
-  description: string;
-  execute: (msg: Discord.Message, args: string[], client: MusixClient) => void;
+  execute: (msg: Discord.Message, args: string[], client: Client) => void;
 }
 
 export class Command {
   public name: string;
-  public usage: string;
-  public description: string;
   public permission?: Discord.PermissionString;
   public execute: (
     msg: Discord.Message,
     args: string[],
-    client: MusixClient
+    client: Client
   ) => void;
   constructor(commandProps: CommandProps) {
     this.name = commandProps.name;
-    this.usage = commandProps.usage;
-    this.description = commandProps.description;
     this.execute = commandProps.execute;
   }
 }
