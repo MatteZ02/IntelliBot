@@ -2,7 +2,7 @@ import Discord from "discord.js";
 import admin from "firebase-admin";
 import { Command } from "./command";
 import config from "../config/config";
-import serviceAccountDetails from "../config/serviceAccount";
+import * as serviceAccount from "../config/serviceAccount.json";
 
 export interface Data {
   ids: Array<string> | undefined;
@@ -28,7 +28,8 @@ class Client extends Discord.Client {
     super();
 
     admin.initializeApp({
-      credential: admin.credential.cert(serviceAccountDetails),
+      credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
+      databaseURL: "https://intellibot-669be.firebaseio.com",
     });
 
     this.db = admin.firestore();
