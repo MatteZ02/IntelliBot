@@ -25,8 +25,9 @@ const AddroleCommand = new Command({
      msg.guild?.roles.cache.find(role => role.name.toLowerCase() === args[2].toLowerCase());
     if (!role)
       return msg.channel.send(
-        "<:redx:674263474704220182> Please mention a member or provide an id!"
+        "<:redx:674263474704220182> Role not found!"
       );
+      if (user.roles.cache.has(role.id)) return msg.channel.send(`<:redx:674263474704220182> ${user.user.tag} already has the ${role.name} role!`);
       user.roles.add(role);
       msg.channel.send(`<:green_check_mark:674265384777416705> Successfully given role ${role.name} to ${user.user.tag}`);
   },
