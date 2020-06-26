@@ -2,8 +2,8 @@ import { Command } from "../controller/command";
 import Client from "../controller/client";
 import Discord from "discord.js";
 
-const AddroleCommand = new Command({
-  name: "addrole",
+const RemoveroleCommand = new Command({
+  name: "removerole",
   execute: (msg: Discord.Message, args: Array<string>, client: Client) => {
     if (
       !msg.member?.roles.cache.has(client.config.roles.admin) ||
@@ -22,14 +22,14 @@ const AddroleCommand = new Command({
     const role = msg.guild?.roles.cache.get(
       args[2]
     ) ||
-     msg.guild?.roles.cache.find(role => role.name.toLowerCase() === args[2].toLowerCase());
+      msg.guild?.roles.cache.find(role => role.name.toLowerCase() === args[2].toLowerCase());
     if (!role)
       return msg.channel.send(
         "<:redx:674263474704220182> Please mention a member or provide an id!"
       );
-      user.roles.add(role);
-      msg.channel.send(`<:green_check_mark:674265384777416705> Successfully given role ${role.name} to ${user.user.tag}`);
+      user.roles.remove(role);
+      msg.channel.send(`<:green_check_mark:674265384777416705> Successfully removed role ${role.name} from ${user.user.tag}`);
   },
 });
 
-export default AddroleCommand;
+export default RemoveroleCommand;
