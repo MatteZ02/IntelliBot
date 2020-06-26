@@ -4,6 +4,14 @@ import { Command } from "./command";
 import config from "../config/config";
 import * as serviceAccount from "../config/serviceAccount.json";
 
+const myIntents = new Discord.Intents();
+myIntents.add(
+  1 << 0, // GUILDS
+  1 << 1, // GUILD_MEMBERS
+  1 << 2, // GUILD_BANS
+  1 << 9, // GUILD_MESSAGES
+);
+
 export interface Data {
   ids: Array<string> | undefined;
   time: number;
@@ -25,7 +33,11 @@ class Client extends Discord.Client {
       commands: Discord.Collection<string, Command>;
     }
   ) {
-    super();
+    super({
+      ws: {
+      intents: myIntents
+    }
+  });
 
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
