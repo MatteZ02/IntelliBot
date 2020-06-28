@@ -5,10 +5,7 @@ import Discord from "discord.js";
 const RemoveroleCommand = new Command({
   name: "removerole",
   execute: (msg: Discord.Message, args: Array<string>, client: Client) => {
-    if (
-      !msg.member?.roles.cache.has(client.config.roles.admin) ||
-      !msg.member?.roles.cache.has(client.config.roles.mod)
-    )
+    if (!msg.member?.roles.cache.has(client.config.roles.admin))
       return msg.channel.send(
         "<:redx:674263474704220182> Insufficient permissions!"
       );
@@ -19,17 +16,21 @@ const RemoveroleCommand = new Command({
       return msg.channel.send(
         "<:redx:674263474704220182> Please mention a member or provide an id!"
       );
-    const role = msg.guild?.roles.cache.get(
-      args[2]
-    ) ||
-      msg.guild?.roles.cache.find(role => role.name.toLowerCase() === args[2].toLowerCase());
-    if (!role)
-      return msg.channel.send(
-        "<:redx:674263474704220182> Role not found!"
+    const role =
+      msg.guild?.roles.cache.get(args[2]) ||
+      msg.guild?.roles.cache.find(
+        (role) => role.name.toLowerCase() === args[2].toLowerCase()
       );
-      if (!user.roles.cache.has(role.id)) return msg.channel.send(`<:redx:674263474704220182> ${user.user.tag} does not have the ${role.name} role!`);
-      user.roles.remove(role);
-      msg.channel.send(`<:green_check_mark:674265384777416705> Successfully removed role ${role.name} from ${user.user.tag}`);
+    if (!role)
+      return msg.channel.send("<:redx:674263474704220182> Role not found!");
+    if (!user.roles.cache.has(role.id))
+      return msg.channel.send(
+        `<:redx:674263474704220182> ${user.user.tag} does not have the ${role.name} role!`
+      );
+    user.roles.remove(role);
+    msg.channel.send(
+      `<:green_check_mark:674265384777416705> Successfully removed role ${role.name} from ${user.user.tag}`
+    );
   },
 });
 
