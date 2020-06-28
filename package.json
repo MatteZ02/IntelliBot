@@ -30,6 +30,7 @@
     "@types/ws": "^7.2.4",
     "discord-webhook-ts": "^3.0.3",
     "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0",
     "firebase": "^7.15.4",
     "firebase-admin": "^8.12.1"
   }

@@ -1,6 +1,8 @@
+require("dotenv/config");
+
 export default {
   prefix: "-",
-  token: "NzE0ODg3NDAxMTcxODQ1MTgw.Xs1PJQ.FFWQmMfFR0DvDk_rJqMxULzijWA",
+  token: process.env.TOKEN,
   webHookUrl:
     "https://discordapp.com/api/webhooks/715899176730492928/R1fHLkSAPZiYTLituVgVPh6Y9OzU2PSRsJrZDjPIMIxa9iPRGrOH7WvMydZ-CVWg79pY",
   channelWhitelist: [
