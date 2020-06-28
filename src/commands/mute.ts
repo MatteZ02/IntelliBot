@@ -26,21 +26,28 @@ const MuteCommand = new Command({
       return msg.channel.send(
         "<:redx:674263474704220182> Please provide a time in __hours__!"
       );
+    const reason = args.slice(3).join(" ");
+    if (!reason)
+      return msg.channel.send(
+        "<:redx:674263474704220182> Please provide a reason!"
+      );
     user.roles.add("608365682291376128");
-    const timeDate = Date.now() + time * 3600;
+    const timeDate = Date.now() + time * 3600000;
     client.db.collection("mutes").doc(user.id).set({
       time: timeDate,
     });
     client.global.db.mutes[user.id] = {
       ids: undefined,
       time: timeDate,
+      reason: reason,
+      mutedFor: time,
     };
     client.db.collection("mutes").doc("users").set({
       ids: client.global.db.mutes.users.ids,
     });
     client.global.db.mutes.users?.ids?.push(user.id);
     msg.channel.send(
-      `<:green_check_mark:674265384777416705> Successfully muted ${user.user.tag} for ${time} hours!`
+      `<:green_check_mark:674265384777416705> Successfully muted ${user.user.tag} for ${time} hours with reason "${reason}"`
     );
   },
 });

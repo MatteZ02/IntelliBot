@@ -37,7 +37,7 @@ const KickCommand = new Command({
     ) as Discord.TextChannel;
     user?.kick(reason);
     msg.channel.send(
-      `<:green_check_mark:674265384777416705> Successfully kicked ${user.user.tag}`
+      `<:green_check_mark:674265384777416705> Successfully kicked ${user.user.tag} for ${reason}`
     );
     let embed = new Discord.MessageEmbed()
       .setAuthor(`Member kicked`, user.user.displayAvatarURL())

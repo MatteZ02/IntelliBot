@@ -7,6 +7,7 @@ import PurgeCommand from "./purge";
 import MuteCommand from "./mute";
 import AddroleCommand from "./addrole";
 import RemoveroleCommand from "./removerole";
+import EvalCommand from "./eval";
 
 const commands: Command[] = [
   kickCommand,
@@ -15,7 +16,8 @@ const commands: Command[] = [
   PurgeCommand,
   MuteCommand,
   AddroleCommand,
-  RemoveroleCommand
+  RemoveroleCommand,
+  EvalCommand,
 ];
 
 export default commands;

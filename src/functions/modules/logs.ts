@@ -193,7 +193,11 @@ export default async (client: Client) => {
       if (role[0].id === "608365682291376128") {
         embed = new Discord.MessageEmbed()
           .setAuthor(`${newMember.user.tag}`, newMember.user.displayAvatarURL())
-          .setDescription(`${newMember} was muted!`)
+          .setDescription(
+            `${newMember} was muted!\nReason: ${
+              client.global.db.mutes[newMember.id].reason
+            }\nTime: ${client.global.db.mutes[newMember.id].mutedFor}`
+          )
           .setTimestamp()
           .setColor("#4F545C")
           .setFooter(`ID: ${newMember.id}`, client.user.displayAvatarURL());

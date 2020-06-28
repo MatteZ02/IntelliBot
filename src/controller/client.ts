@@ -9,12 +9,14 @@ myIntents.add(
   1 << 0, // GUILDS
   1 << 1, // GUILD_MEMBERS
   1 << 2, // GUILD_BANS
-  1 << 9, // GUILD_MESSAGES
+  1 << 9 // GUILD_MESSAGES
 );
 
 export interface Data {
   ids: Array<string> | undefined;
   time: number;
+  reason: string;
+  mutedFor: number;
 }
 
 class Client extends Discord.Client {
@@ -35,9 +37,9 @@ class Client extends Discord.Client {
   ) {
     super({
       ws: {
-      intents: myIntents
-    }
-  });
+        intents: myIntents,
+      },
+    });
 
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),

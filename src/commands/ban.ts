@@ -37,7 +37,7 @@ const BanCommand = new Command({
     ) as Discord.TextChannel;
     user?.ban({ reason: reason, days: 1 });
     msg.channel.send(
-      `<:green_check_mark:674265384777416705> Successfully banned ${user.user.tag}`
+      `<:green_check_mark:674265384777416705> Successfully banned ${user.user.tag} for ${reason}`
     );
     let embed = new Discord.MessageEmbed()
       .setAuthor(`Member banned`, user.user.displayAvatarURL())
