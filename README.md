@@ -16,3 +16,11 @@ Start in production mode npm run start
 Be sure to fill out the requiered fields in .ENV_example and rename the file to .ENV
 
 Also a google firebase is requiered! You will have to create your own cloud firestore and add serviceAccount.json to src/config!
+
+### Database
+
+The database is used to store all mutes in case of a restart for now!
+
+Create a collection called "mutes".
+Under that collection create a document called "users".
+Under that documetn create a field called "ids" as a type Array.
