@@ -168,6 +168,8 @@ export default async (client: Client) => {
         .map((e) => e);
       let embed;
       if (role[0].id === "608365682291376128") {
+        if (client.global.db.mutes["users"].ids?.includes(newMember.id))
+          return newMember.roles.add("608365682291376128");
         embed = new Discord.MessageEmbed()
           .setAuthor(`${newMember.user.tag}`, newMember.user.displayAvatarURL())
           .setDescription(`${newMember} was unmuted!`)
