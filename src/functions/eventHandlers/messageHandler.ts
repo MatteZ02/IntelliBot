@@ -17,18 +17,6 @@ export default async function messageHandler(
 
     discordClient.execute(requestBody); // -> Promise<AxiosResponse>
   }
-  if (
-    msg.member.id === "607266889537945605" &&
-    !client.config.channelWhitelist.includes(msg.channel.id)
-  ) {
-    msg.delete();
-    const warnMsg = await msg.channel.send(
-      "Bot commands are not allowed in this channel!"
-    );
-    setTimeout(() => {
-      warnMsg.delete();
-    }, 5000);
-  }
   const prefix = client.config.prefix;
   if (!msg.content.startsWith(prefix)) return;
 
