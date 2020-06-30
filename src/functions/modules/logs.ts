@@ -46,9 +46,12 @@ export default async (client: Client) => {
     let member = guild.members.cache.first();
     if (!member || !member.user || !LogsChannel || !client.user || user.bot)
       return;
+    const ban = await guild.fetchBan(user as Discord.UserResolvable);
     let embed = new Discord.MessageEmbed()
       .setAuthor(`Member Banned`, user.displayAvatarURL())
-      .setDescription(`${user}\n${user.tag}\nbot: ${user.bot}`)
+      .setDescription(
+        `${user}\n${user.tag}\nbot: ${user.bot}\nReason: ${ban.reason}`
+      )
       .setThumbnail(user.displayAvatarURL())
       .setTimestamp()
       .setColor(0xff0000)

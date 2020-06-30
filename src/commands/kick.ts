@@ -24,7 +24,7 @@ const KickCommand = new Command({
       return msg.channel.send(
         "<:redx:674263474704220182> Please provide a reason!"
       );
-    if (user?.kickable)
+    if (!user?.kickable)
       return msg.channel.send(
         "<:redx:674263474704220182> I cannot kick this person!"
       );
