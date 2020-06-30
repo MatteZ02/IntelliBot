@@ -13,7 +13,7 @@ myIntents.add(
 );
 
 export interface Data {
-  ids: Array<string> | undefined;
+  ids: Array<string> | null;
   time: number;
   reason: string;
   mutedFor: number;

@@ -34,13 +34,13 @@ const MuteCommand = new Command({
     user.roles.add("608365682291376128");
     const timeDate = Date.now() + time * 3600000;
     client.db.collection("mutes").doc(user.id).set({
-      ids: undefined,
+      ids: null,
       time: timeDate,
       reason: reason,
       mutedFor: time,
     });
     client.global.db.mutes[user.id] = {
-      ids: undefined,
+      ids: null,
       time: timeDate,
       reason: reason,
       mutedFor: time,
