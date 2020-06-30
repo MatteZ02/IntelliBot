@@ -28,7 +28,10 @@ const KickCommand = new Command({
       return msg.channel.send(
         "<:redx:674263474704220182> I cannot kick this person!"
       );
-    if (user?.roles.highest.position! >= msg.member.roles.highest.position)
+    if (
+      user?.roles.highest.position! >= msg.member.roles.highest.position &&
+      msg.member.id !== msg.guild?.owner?.id
+    )
       return msg.channel.send(
         "<:redx:674263474704220182> You cannot kick this person!"
       );

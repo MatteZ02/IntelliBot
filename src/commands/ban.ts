@@ -28,7 +28,10 @@ const BanCommand = new Command({
       return msg.channel.send(
         "<:redx:674263474704220182> I cannot ban this person!"
       );
-    if (user?.roles.highest.position! >= msg.member.roles.highest.position)
+    if (
+      user?.roles.highest.position! >= msg.member.roles.highest.position &&
+      msg.member.id !== msg.guild?.owner?.id
+    )
       return msg.channel.send(
         "<:redx:674263474704220182> You cannot ban this person!"
       );
