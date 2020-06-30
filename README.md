@@ -23,4 +23,4 @@ The database is used to store all mutes in case of a restart for now!
 
 Create a collection called "mutes".
 Under that collection create a document called "users".
-Under that documetn create a field called "ids" as a type Array.
+Under that document create a field called "ids" as a type Array.
