@@ -72,20 +72,10 @@ export default async (client: Client) => {
     return LogsChannel.send(embed);
   });
   client.on("messageUpdate", async (oldMessage, newMessage) => {
-    if (
-      !oldMessage ||
-      !oldMessage.author ||
-      !LogsChannel ||
-      !client.user ||
-      !newMessage ||
-      !newMessage.content ||
-      !oldMessage.content
-    )
-      return;
     let embed = new Discord.MessageEmbed()
       .setAuthor(
-        `${oldMessage.author.tag}`,
-        oldMessage.author.displayAvatarURL()
+        `${oldMessage.author?.tag}`,
+        oldMessage.author?.displayAvatarURL()
       )
       .setDescription(
         `Message Edited in ${oldMessage.channel}\n[Link to Message](${newMessage.url})`
@@ -95,15 +85,14 @@ export default async (client: Client) => {
       .setTimestamp()
       .setColor(0xecff00)
       .setFooter(
-        `User ID: ${oldMessage.author.id}`,
-        client.user.displayAvatarURL()
+        `User ID: ${oldMessage.author?.id}`,
+        client.user?.displayAvatarURL()
       );
     return LogsChannel.send(embed);
   });
   client.on("messageDelete", async (message) => {
-    if (!message || !message.author || !LogsChannel || !client.user) return;
     let embed = new Discord.MessageEmbed()
-      .setAuthor(`${message.author.tag}`, message.author.displayAvatarURL())
+      .setAuthor(`${message.author?.tag}`, message.author?.displayAvatarURL())
       .setDescription(
         `Message Sent By ${message.author} deleted in ${message.channel}`
       )
@@ -111,31 +100,28 @@ export default async (client: Client) => {
       .setTimestamp()
       .setColor(0xecff00)
       .setFooter(
-        `Author ID: ${message.author.id} | Message ID: ${message.id}`,
-        client.user.displayAvatarURL()
+        `Author ID: ${message.author?.id} | Message ID: ${message.id}`,
+        client.user?.displayAvatarURL()
       );
     return LogsChannel.send(embed);
   });
   client.on("roleCreate", async (role) => {
-    if (!LogsChannel || !role || !client.user) return;
     let embed = new Discord.MessageEmbed()
       .setTitle(`Role Created: @${role.name}`)
       .setTimestamp()
       .setColor(0x23ff00)
-      .setFooter(`ID: ${role.id}`, client.user.displayAvatarURL());
+      .setFooter(`ID: ${role.id}`, client.user?.displayAvatarURL());
     return LogsChannel.send(embed);
   });
   client.on("roleDelete", async (role) => {
-    if (!LogsChannel || !role || !client.user) return;
     let embed = new Discord.MessageEmbed()
       .setTitle(`Role Deleted: @${role.name}`)
       .setTimestamp()
       .setColor(0xff0000)
-      .setFooter(`ID: ${role.id}`, client.user.displayAvatarURL());
+      .setFooter(`ID: ${role.id}`, client.user?.displayAvatarURL());
     return LogsChannel.send(embed);
   });
   client.on("roleUpdate", async (oldRole, newRole) => {
-    if (!LogsChannel || !client.user) return;
     if (oldRole.name === "@everyone") return;
     if (oldRole.position !== newRole.position) return;
     if (oldRole.name === newRole.name && oldRole.hexColor === newRole.hexColor)
@@ -146,7 +132,7 @@ export default async (client: Client) => {
       .addField(`After:`, newRole)
       .setTimestamp()
       .setColor(0xf3ff00)
-      .setFooter(`ID: ${newRole.id}`, client.user.displayAvatarURL());
+      .setFooter(`ID: ${newRole.id}`, client.user?.displayAvatarURL());
     if (oldRole.hexColor !== newRole.hexColor) {
       embed.addField(
         `Role Color Changed`,
@@ -156,15 +142,6 @@ export default async (client: Client) => {
     return LogsChannel.send(embed);
   });
   client.on("guildMemberUpdate", async (oldMember, newMember) => {
-    if (
-      !newMember ||
-      !oldMember ||
-      !newMember.user ||
-      !oldMember.user ||
-      !client.user ||
-      !LogsChannel
-    )
-      return;
     if (oldMember.roles.cache.size > newMember.roles.cache.size) {
       let role = oldMember.roles.cache
         .filter((r) => !newMember.roles.cache.has(r.id))
@@ -174,21 +151,27 @@ export default async (client: Client) => {
         if (client.global.db.mutes["users"].ids?.includes(newMember.id))
           return newMember.roles.add("608365682291376128");
         embed = new Discord.MessageEmbed()
-          .setAuthor(`${newMember.user.tag}`, newMember.user.displayAvatarURL())
+          .setAuthor(
+            `${newMember.user?.tag}`,
+            newMember.user?.displayAvatarURL()
+          )
           .setDescription(`${newMember} was unmuted!`)
           .setTimestamp()
           .setColor("#4F545C")
-          .setFooter(`ID: ${newMember.id}`, client.user.displayAvatarURL());
+          .setFooter(`ID: ${newMember.id}`, client.user?.displayAvatarURL());
         return LogsChannel.send(embed);
       } else
         embed = new Discord.MessageEmbed()
-          .setAuthor(`${newMember.user.tag}`, newMember.user.displayAvatarURL())
+          .setAuthor(
+            `${newMember.user?.tag}`,
+            newMember.user?.displayAvatarURL()
+          )
           .setDescription(
             `${newMember} was removed from the \`${role[0].name}\` role`
           )
           .setTimestamp()
           .setColor(0xff0000)
-          .setFooter(`ID: ${newMember.id}`, client.user.displayAvatarURL());
+          .setFooter(`ID: ${newMember.id}`, client.user?.displayAvatarURL());
       return LogsChannel.send(embed);
     } else if (newMember.roles.cache.size > oldMember.roles.cache.size) {
       let role = newMember.roles.cache
@@ -197,7 +180,10 @@ export default async (client: Client) => {
       let embed;
       if (role[0].id === "608365682291376128") {
         embed = new Discord.MessageEmbed()
-          .setAuthor(`${newMember.user.tag}`, newMember.user.displayAvatarURL())
+          .setAuthor(
+            `${newMember.user?.tag}`,
+            newMember.user?.displayAvatarURL()
+          )
           .setDescription(
             `${newMember} was muted!\nReason: ${
               client.global.db.mutes[newMember.id].reason
@@ -205,26 +191,29 @@ export default async (client: Client) => {
           )
           .setTimestamp()
           .setColor("#4F545C")
-          .setFooter(`ID: ${newMember.id}`, client.user.displayAvatarURL());
+          .setFooter(`ID: ${newMember.id}`, client.user?.displayAvatarURL());
         return LogsChannel.send(embed);
       } else
         embed = new Discord.MessageEmbed()
-          .setAuthor(`${newMember.user.tag}`, newMember.user.displayAvatarURL())
+          .setAuthor(
+            `${newMember.user?.tag}`,
+            newMember.user?.displayAvatarURL()
+          )
           .setDescription(`${newMember} was given the \`${role[0].name}\` role`)
           .setTimestamp()
           .setColor(0x23ff00)
-          .setFooter(`ID: ${newMember.id}`, client.user.displayAvatarURL());
+          .setFooter(`ID: ${newMember.id}`, client.user?.displayAvatarURL());
       return LogsChannel.send(embed);
     }
     if (oldMember.nickname !== newMember.nickname) {
       let embed = new Discord.MessageEmbed()
-        .setAuthor(`${newMember.user.tag}`, newMember.user.displayAvatarURL())
+        .setAuthor(`${newMember.user?.tag}`, newMember.user?.displayAvatarURL())
         .setDescription(`${newMember} Nickname Changed!`)
         .addField(`Before:`, oldMember.nickname || "None")
         .addField(`After:`, newMember.nickname || "None")
         .setTimestamp()
         .setColor(0xff00e0)
-        .setFooter(`ID: ${newMember.id}`, client.user.displayAvatarURL());
+        .setFooter(`ID: ${newMember.id}`, client.user?.displayAvatarURL());
       return LogsChannel.send(embed);
     }
   });
