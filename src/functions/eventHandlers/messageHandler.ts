@@ -12,7 +12,7 @@ export default async function messageHandler(
     const discordClient = new DiscordWebhook(client.config.webHookUrl);
 
     const requestBody: Webhook.input.POST = {
-      content: `${msg.content}\n\nPosted by \`${msg.author.tag}\` in \`${msg.guild.name}\``,
+      content: `${msg.content}\n\nPosted by __${msg.author.tag}__ in __${msg.guild.name}__`,
     };
 
     discordClient.execute(requestBody); // -> Promise<AxiosResponse>
