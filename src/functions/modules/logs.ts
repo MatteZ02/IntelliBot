@@ -7,45 +7,26 @@ export default async (client: Client) => {
   ) as Discord.TextChannel;
 
   client.on("guildMemberAdd", async (member) => {
-    if (
-      !member ||
-      !member.user ||
-      !LogsChannel ||
-      !client.user ||
-      member.user.bot
-    )
-      return;
     let embed = new Discord.MessageEmbed()
-      .setAuthor(`Member Joined`, member.user.displayAvatarURL())
-      .setDescription(`${member}\n${member.user.tag}`)
-      .setThumbnail(member.user.displayAvatarURL())
+      .setAuthor(`Member Joined`, member.user?.displayAvatarURL())
+      .setDescription(`${member}\n${member.user?.tag}`)
+      .setThumbnail(member.user?.displayAvatarURL() as string)
       .setTimestamp()
       .setColor(0x00ff17)
-      .setFooter(`ID: ${member.id}`, client.user.displayAvatarURL());
+      .setFooter(`ID: ${member.id}`, client.user?.displayAvatarURL());
     return LogsChannel.send(embed);
   });
   client.on("guildMemberRemove", async (member) => {
-    if (
-      !member ||
-      !member.user ||
-      !LogsChannel ||
-      !client.user ||
-      member.user.bot
-    )
-      return;
     let embed = new Discord.MessageEmbed()
-      .setAuthor(`Member Left`, member.user.displayAvatarURL())
-      .setDescription(`${member}\n${member.user.tag}\nbot: ${member.user.bot}`)
-      .setThumbnail(member.user.displayAvatarURL())
+      .setAuthor(`Member Left`, member.user?.displayAvatarURL())
+      .setDescription(`${member}\n${member.user?.tag}\nbot: ${member.user?.bot}`)
+      .setThumbnail(member.user?.displayAvatarURL() as string)
       .setTimestamp()
       .setColor(0xff0000)
-      .setFooter(`ID: ${member.id}`, client.user.displayAvatarURL());
+      .setFooter(`ID: ${member.id}`, client.user?.displayAvatarURL());
     return LogsChannel.send(embed);
   });
   client.on("guildBanAdd", async (guild, user) => {
-    let member = guild.members.cache.first();
-    if (!member || !member.user || !LogsChannel || !client.user || user.bot)
-      return;
     const ban = await guild.fetchBan(user as Discord.UserResolvable);
     let embed = new Discord.MessageEmbed()
       .setAuthor(`Member Banned`, user.displayAvatarURL())
@@ -55,20 +36,17 @@ export default async (client: Client) => {
       .setThumbnail(user.displayAvatarURL())
       .setTimestamp()
       .setColor(0xff0000)
-      .setFooter(`ID: ${user.id}`, client.user.displayAvatarURL());
+      .setFooter(`ID: ${user.id}`, client.user?.displayAvatarURL());
     return LogsChannel.send(embed);
   });
   client.on("guildBanRemove", async (guild, user) => {
-    let member = guild.members.cache.first();
-    if (!member || !member.user || !LogsChannel || !client.user || user.bot)
-      return;
     let embed = new Discord.MessageEmbed()
       .setAuthor(`Member Unbanned`, user.displayAvatarURL())
       .setDescription(`${user}\n${user.tag}\nbot: ${user.bot}`)
       .setThumbnail(user.displayAvatarURL())
       .setTimestamp()
       .setColor(0xecff00)
-      .setFooter(`ID: ${user.id}`, client.user.displayAvatarURL());
+      .setFooter(`ID: ${user.id}`, client.user?.displayAvatarURL());
     return LogsChannel.send(embed);
   });
   client.on("messageUpdate", async (oldMessage, newMessage) => {
@@ -160,7 +138,7 @@ export default async (client: Client) => {
           .setColor("#4F545C")
           .setFooter(`ID: ${newMember.id}`, client.user?.displayAvatarURL());
         return LogsChannel.send(embed);
-      } else
+      } else {
         embed = new Discord.MessageEmbed()
           .setAuthor(
             `${newMember.user?.tag}`,
@@ -173,6 +151,7 @@ export default async (client: Client) => {
           .setColor(0xff0000)
           .setFooter(`ID: ${newMember.id}`, client.user?.displayAvatarURL());
       return LogsChannel.send(embed);
+          }
     } else if (newMember.roles.cache.size > oldMember.roles.cache.size) {
       let role = newMember.roles.cache
         .filter((r) => !oldMember.roles.cache.has(r.id))

@@ -2,6 +2,7 @@ import { Command } from "../controller/command";
 
 import kickCommand from "./kick";
 import BanComamnd from "./ban";
+import DeleteCommand from "./delete";
 import LockdownCommand from "./lockdown";
 import PurgeCommand from "./purge";
 import MuteCommand from "./mute";
@@ -13,6 +14,7 @@ import UnmuteCommand from "./unmute";
 const commands: Command[] = [
   kickCommand,
   BanComamnd,
+  DeleteCommand,
   LockdownCommand,
   PurgeCommand,
   MuteCommand,
