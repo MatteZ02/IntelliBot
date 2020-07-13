@@ -1,16 +1,17 @@
-import Client, { Data } from "../../controller/client";
+import Client, { MuteData, WarnData } from "../../controller/client";
 import logs from "../modules/logs";
-
-interface readyGuildData extends Data {
-  d: Data;
-  id: string;
-}
 
 export default async function readyHandler(client: Client) {
   client.getDB("mutes").then((data) => {
     if (typeof data === "string" || data instanceof String) return;
     data.forEach((data) => {
-      client.global.db.mutes[data.id] = data.d;
+      client.global.db.mutes[data.id] = data.d as MuteData;
+    });
+  });
+  client.getDB("warnings").then((data) => {
+    if (typeof data === "string" || data instanceof String) return;
+    data.forEach((data) => {
+      client.global.db.warnings[data.id] = data.d as WarnData;
     });
   });
   console.log("Ready!");
@@ -41,7 +42,10 @@ export default async function readyHandler(client: Client) {
   }, 60000);
   setInterval(function () {
     client.db.collection("mutes").doc("users").set({
-      ids: client.global.db.mutes.users.ids,
+      ids: client.global.db.mutes["users"].ids,
+    });
+    client.db.collection("warnings").doc("users").set({
+      ids: client.global.db.warnings["users"].ids,
     });
   }, 60000);
   logs(client);

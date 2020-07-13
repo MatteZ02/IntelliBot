@@ -46,9 +46,9 @@ const MuteCommand = new Command({
       mutedFor: time,
     };
     client.db.collection("mutes").doc("users").set({
-      ids: client.global.db.mutes.users.ids,
+      ids: client.global.db.mutes["users"].ids,
     });
-    client.global.db.mutes.users?.ids?.push(user.id);
+    client.global.db.mutes["users"].ids?.push(user.id);
     msg.channel.send(
       `<:green_check_mark:674265384777416705> Successfully muted ${user.user.tag} for ${time} hours with reason "${reason}"`
     );

@@ -19,7 +19,7 @@ const BanCommand = new Command({
       return msg.channel.send(
         "<:redx:674263474704220182> Please mention a member or provide an id!"
       );
-    const reason = args.slice(1).join(" ");
+    const reason = args.slice(2).join(" ");
     if (!reason)
       return msg.channel.send(
         "<:redx:674263474704220182> Please provide a reason!"

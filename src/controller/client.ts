@@ -12,18 +12,26 @@ myIntents.add(
   1 << 9 // GUILD_MESSAGES
 );
 
-export interface Data {
+export interface MuteData {
   ids: Array<string> | null;
   time: number;
   reason: string;
   mutedFor: number;
 }
 
+export interface WarnData {
+  ids: Array<string> | null;
+  warnings: number;
+}
+
 class Client extends Discord.Client {
   public global: {
     db: {
       mutes: {
-        [userid: string]: Data;
+        [userid: string]: MuteData;
+      };
+      warnings: {
+        [userid: string]: WarnData;
       };
     };
   };
@@ -43,13 +51,13 @@ class Client extends Discord.Client {
 
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
-      databaseURL: "https://intellibot-669be.firebaseio.com",
+      databaseURL: config.databaseURL,
     });
 
     this.db = admin.firestore();
     this.commands = commandInfo.commands;
     this.global = {
-      db: { mutes: {} },
+      db: { mutes: {}, warnings: {} },
     };
   }
   async getDB(collection: string) {
@@ -57,11 +65,11 @@ class Client extends Discord.Client {
       .collection(collection)
       .get()
       .then((data) => {
-        const finalD: { id: string; d: Data }[] = [];
+        const finalD: { id: string; d: MuteData | WarnData }[] = [];
         data.forEach((doc) => {
           finalD.push({
             id: doc.id,
-            d: doc.data() as Data,
+            d: doc.data() as MuteData | WarnData,
           });
         });
         return finalD;

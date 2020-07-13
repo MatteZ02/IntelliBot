@@ -19,7 +19,9 @@ export default async (client: Client) => {
   client.on("guildMemberRemove", async (member) => {
     let embed = new Discord.MessageEmbed()
       .setAuthor(`Member Left`, member.user?.displayAvatarURL())
-      .setDescription(`${member}\n${member.user?.tag}\nbot: ${member.user?.bot}`)
+      .setDescription(
+        `${member}\n${member.user?.tag}\nbot: ${member.user?.bot}`
+      )
       .setThumbnail(member.user?.displayAvatarURL() as string)
       .setTimestamp()
       .setColor(0xff0000)
@@ -50,6 +52,7 @@ export default async (client: Client) => {
     return LogsChannel.send(embed);
   });
   client.on("messageUpdate", async (oldMessage, newMessage) => {
+    if (newMessage.author?.bot) return;
     let embed = new Discord.MessageEmbed()
       .setAuthor(
         `${oldMessage.author?.tag}`,
@@ -69,6 +72,7 @@ export default async (client: Client) => {
     return LogsChannel.send(embed);
   });
   client.on("messageDelete", async (message) => {
+    if (message.author?.bot) return;
     let embed = new Discord.MessageEmbed()
       .setAuthor(`${message.author?.tag}`, message.author?.displayAvatarURL())
       .setDescription(
@@ -150,8 +154,8 @@ export default async (client: Client) => {
           .setTimestamp()
           .setColor(0xff0000)
           .setFooter(`ID: ${newMember.id}`, client.user?.displayAvatarURL());
-      return LogsChannel.send(embed);
-          }
+        return LogsChannel.send(embed);
+      }
     } else if (newMember.roles.cache.size > oldMember.roles.cache.size) {
       let role = newMember.roles.cache
         .filter((r) => !oldMember.roles.cache.has(r.id))

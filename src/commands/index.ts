@@ -10,6 +10,7 @@ import AddroleCommand from "./addrole";
 import RemoveroleCommand from "./removerole";
 import EvalCommand from "./eval";
 import UnmuteCommand from "./unmute";
+import WarnCommand from "./warn";
 
 const commands: Command[] = [
   kickCommand,
@@ -22,6 +23,7 @@ const commands: Command[] = [
   RemoveroleCommand,
   EvalCommand,
   UnmuteCommand,
+  WarnCommand,
 ];
 
 export default commands;
