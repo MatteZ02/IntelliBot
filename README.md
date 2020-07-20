@@ -1,3 +1,4 @@
+[![Discord](https://img.shields.io/discord/484464227067887645.svg)](https://discord.gg/cMjJhRb)
 # Intellibot
 
 ## Discord moderation bot
