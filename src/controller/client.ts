@@ -4,8 +4,8 @@ import { Command } from "./command";
 import config from "../config/config";
 import * as serviceAccount from "../config/serviceAccount.json";
 
-const myIntents = new Discord.Intents();
-myIntents.add(
+const gatewayIntents = new Discord.Intents();
+gatewayIntents.add(
   1 << 0, // GUILDS
   1 << 1, // GUILD_MEMBERS
   1 << 2, // GUILD_BANS
@@ -45,7 +45,7 @@ class Client extends Discord.Client {
   ) {
     super({
       ws: {
-        intents: myIntents,
+        intents: gatewayIntents,
       },
     });
 
