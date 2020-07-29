@@ -21,7 +21,7 @@ export default async function readyHandler(client: Client) {
     activity: {
       name: "Musix Support",
       type: "STREAMING",
-      url: "https://www.twitch.tv/Mattez02",
+      url: "https://www.twitch.tv/musixdiscordbot",
     },
   });
   setInterval(function () {
