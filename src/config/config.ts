@@ -4,8 +4,6 @@ export default {
   prefix: "-",
   token: process.env.TOKEN,
   databaseURL: process.env.DATABASE_URL,
-  webHookUrl:
-    "https://discordapp.com/api/webhooks/715899176730492928/R1fHLkSAPZiYTLituVgVPh6Y9OzU2PSRsJrZDjPIMIxa9iPRGrOH7WvMydZ-CVWg79pY",
   channelWhitelist: [
     "583601892257693746",
     "700265375073304588",
