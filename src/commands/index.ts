@@ -3,6 +3,7 @@ import { Command } from "../controller/Command";
 import kickCommand from "./kick";
 import BanComamnd from "./ban";
 import DeleteCommand from "./delete";
+import HelpCommand from "./help";
 import LockdownCommand from "./lockdown";
 import PurgeCommand from "./purge";
 import MuteCommand from "./mute";
@@ -16,6 +17,7 @@ const commands: Command[] = [
   kickCommand,
   BanComamnd,
   DeleteCommand,
+  HelpCommand,
   LockdownCommand,
   PurgeCommand,
   MuteCommand,
