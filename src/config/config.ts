@@ -19,4 +19,5 @@ export default {
     mod: "583601716088406017",
     supportTeam: "608683224956272663",
   },
+  embedColor: "#82a1e1",
 };

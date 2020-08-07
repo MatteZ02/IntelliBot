@@ -1,5 +1,5 @@
 import Discord from "discord.js";
-import Client from "../../controller/client";
+import Client from "../../controller/BaseClient";
 
 export default async (client: Client) => {
   const LogsChannel = client.channels.cache.get(
@@ -51,26 +51,6 @@ export default async (client: Client) => {
       .setFooter(`ID: ${user.id}`, client.user?.displayAvatarURL());
     return LogsChannel.send(embed);
   });
-  client.on("messageUpdate", async (oldMessage, newMessage) => {
-    if (newMessage.author?.bot) return;
-    let embed = new Discord.MessageEmbed()
-      .setAuthor(
-        `${oldMessage.author?.tag}`,
-        oldMessage.author?.displayAvatarURL()
-      )
-      .setDescription(
-        `Message Edited in ${oldMessage.channel}\n[Link to Message](${newMessage.url})`
-      )
-      .addField(`Before`, oldMessage.content)
-      .addField(`After`, newMessage.content)
-      .setTimestamp()
-      .setColor(0xecff00)
-      .setFooter(
-        `User ID: ${oldMessage.author?.id}`,
-        client.user?.displayAvatarURL()
-      );
-    return LogsChannel.send(embed);
-  });
   client.on("messageDelete", async (message) => {
     if (message.author?.bot) return;
     let embed = new Discord.MessageEmbed()
@@ -85,42 +65,6 @@ export default async (client: Client) => {
         `Author ID: ${message.author?.id} | Message ID: ${message.id}`,
         client.user?.displayAvatarURL()
       );
-    return LogsChannel.send(embed);
-  });
-  client.on("roleCreate", async (role) => {
-    let embed = new Discord.MessageEmbed()
-      .setTitle(`Role Created: @${role.name}`)
-      .setTimestamp()
-      .setColor(0x23ff00)
-      .setFooter(`ID: ${role.id}`, client.user?.displayAvatarURL());
-    return LogsChannel.send(embed);
-  });
-  client.on("roleDelete", async (role) => {
-    let embed = new Discord.MessageEmbed()
-      .setTitle(`Role Deleted: @${role.name}`)
-      .setTimestamp()
-      .setColor(0xff0000)
-      .setFooter(`ID: ${role.id}`, client.user?.displayAvatarURL());
-    return LogsChannel.send(embed);
-  });
-  client.on("roleUpdate", async (oldRole, newRole) => {
-    if (oldRole.name === "@everyone") return;
-    if (oldRole.position !== newRole.position) return;
-    if (oldRole.name === newRole.name && oldRole.hexColor === newRole.hexColor)
-      return;
-    let embed = new Discord.MessageEmbed()
-      .setDescription(`**Role Updated**`)
-      .addField(`Before:`, oldRole.name)
-      .addField(`After:`, newRole)
-      .setTimestamp()
-      .setColor(0xf3ff00)
-      .setFooter(`ID: ${newRole.id}`, client.user?.displayAvatarURL());
-    if (oldRole.hexColor !== newRole.hexColor) {
-      embed.addField(
-        `Role Color Changed`,
-        `${oldRole.hexColor} :arrow_right: ${newRole.hexColor}`
-      );
-    }
     return LogsChannel.send(embed);
   });
   client.on("guildMemberUpdate", async (oldMember, newMember) => {

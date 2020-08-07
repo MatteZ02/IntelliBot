@@ -1,5 +1,5 @@
 import Discord, { PermissionString } from "discord.js";
-import Client from "./client";
+import Client from "./BaseClient";
 
 interface CommandProps {
   name: string;

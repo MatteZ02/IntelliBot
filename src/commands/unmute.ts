@@ -1,5 +1,5 @@
-import { Command } from "../controller/command";
-import Client from "../controller/client";
+import { Command } from "../controller/Command";
+import Client from "../controller/BaseClient";
 import Discord from "discord.js";
 
 const UnmuteCommand = new Command({

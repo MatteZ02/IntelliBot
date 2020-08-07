@@ -1,5 +1,5 @@
 import Discord from "discord.js";
-import Client from "../../controller/client";
+import Client from "../../controller/BaseClient";
 
 export default async function messageHandler(
   msg: Discord.Message,

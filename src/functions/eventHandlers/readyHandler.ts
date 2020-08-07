@@ -1,4 +1,4 @@
-import Client, { MuteData, WarnData } from "../../controller/client";
+import Client, { MuteData, WarnData } from "../../controller/BaseClient";
 import logs from "../modules/logs";
 
 export default async function readyHandler(client: Client) {
