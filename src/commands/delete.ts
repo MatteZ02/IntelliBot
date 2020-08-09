@@ -6,9 +6,9 @@ const DeleteCommand = new Command({
   name: "delete",
   execute: (msg: Discord.Message, args: Array<String>, client: Client) => {
     if (
-      !msg.member?.roles.cache.has(client.config.roles.admin) ||
-      !msg.member?.roles.cache.has(client.config.roles.mod) ||
-      !msg.member?.roles.cache.has(client.config.roles.devs) ||
+      !msg.member?.roles.cache.has(client.config.roles.admin) &&
+      !msg.member?.roles.cache.has(client.config.roles.mod) &&
+      !msg.member?.roles.cache.has(client.config.roles.devs) &&
       !msg.member?.roles.cache.has(client.config.roles.supportTeam)
     )
       return msg.channel.send(

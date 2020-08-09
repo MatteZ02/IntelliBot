@@ -6,7 +6,7 @@ const KickCommand = new Command({
   name: "kick",
   execute: (msg: Discord.Message, args: Array<String>, client: Client) => {
     if (
-      !msg.member?.roles.cache.has(client.config.roles.admin) ||
+      !msg.member?.roles.cache.has(client.config.roles.admin) &&
       !msg.member?.roles.cache.has(client.config.roles.mod)
     )
       return msg.channel.send(

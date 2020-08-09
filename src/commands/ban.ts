@@ -6,7 +6,7 @@ const BanCommand = new Command({
   name: "ban",
   execute: (msg: Discord.Message, args: Array<String>, client: Client) => {
     if (
-      !msg.member?.roles.cache.has(client.config.roles.admin) ||
+      !msg.member?.roles.cache.has(client.config.roles.admin) &&
       !msg.member?.roles.cache.has(client.config.roles.mod)
     )
       return msg.channel.send(

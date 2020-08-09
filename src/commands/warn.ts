@@ -6,10 +6,10 @@ const WarnCommand = new Command({
   name: "warn",
   execute: (msg: Discord.Message, args: Array<string>, client: Client) => {
     if (
-      !msg.member?.roles.cache.has(client.config.roles.admin) ||
-      !msg.member.roles.cache.has(client.config.roles.devs) ||
-      !msg.member.roles.cache.has(client.config.roles.mod) ||
-      !msg.member.roles.cache.has(client.config.roles.supportTeam)
+      !msg.member?.roles.cache.has(client.config.roles.admin) &&
+      !msg.member?.roles.cache.has(client.config.roles.devs) &&
+      !msg.member?.roles.cache.has(client.config.roles.mod) &&
+      !msg.member?.roles.cache.has(client.config.roles.supportTeam)
     )
       return msg.channel.send(
         "<:redx:674263474704220182> Insufficient permissions!"

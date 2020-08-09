@@ -6,8 +6,7 @@ const LockdownCommand = new Command({
   name: "lockdown",
   execute: (msg: Discord.Message, args: Array<String>, client: Client) => {
     if (
-      !msg.member?.roles.cache.has(client.config.roles.admin) ||
-      !msg.member?.roles.cache.has(client.config.roles.mod) ||
+      !msg.member?.roles.cache.has(client.config.roles.admin) &&
       !msg.member?.roles.cache.has(client.config.roles.devs)
     )
       return msg.channel.send(
