@@ -6,7 +6,7 @@ interface CommandProps {
   execute: (msg: Discord.Message, args: string[], client: Client) => void;
 }
 
-export class Command {
+export default class Command {
   public name: string;
   public permission?: Discord.PermissionString;
   public execute: (

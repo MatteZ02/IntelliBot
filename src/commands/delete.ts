@@ -1,6 +1,6 @@
 import { Command } from "../controller/Command";
 import Client from "../controller/BaseClient";
-import Discord from "discord.js";
+import Discord, { Collection, Snowflake, Message } from "discord.js";
 
 const DeleteCommand = new Command({
   name: "delete",
@@ -23,9 +23,10 @@ const DeleteCommand = new Command({
       return msg.channel.send(
         "<:redx:674263474704220182> Please enter a valid __number__!"
       );
-    msg.channel
+    const channel = msg.channel as Discord.TextChannel;
+    channel
       .bulkDelete(amount, true)
-      .then((messages) =>
+      .then((messages: Collection<Snowflake, Message>) =>
         msg.channel
           .send(
             `<:green_check_mark:674265384777416705> Successfully deleted ${messages.size} messages!`

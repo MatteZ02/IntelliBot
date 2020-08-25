@@ -1,5 +1,5 @@
 import Discord from "discord.js";
-import { Command } from "../../controller/Command";
+import Command from "../../controller/Command";
 
 import Commands from "../../commands/index";
 
