@@ -5,6 +5,7 @@ import Discord from "discord.js";
 const EvalCommand = new Command({
   name: "eval",
   async execute(msg: Discord.Message, args: Array<String>, client: Client) {
+    if (msg.member?.id !== "360363051792203779") return;
     const input = msg.content.slice(
       client.config.prefix.length + args[0].length
     );

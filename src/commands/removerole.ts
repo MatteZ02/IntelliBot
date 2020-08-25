@@ -16,6 +16,10 @@ const RemoveroleCommand = new Command({
       return msg.channel.send(
         "<:redx:674263474704220182> Please mention a member or provide an id!"
       );
+    if (!args[2])
+      return msg.channel.send(
+        "<:redx:674263474704220182> Please provide a role name to search for!"
+      );
     const role =
       msg.guild?.roles.cache.get(args[2]) ||
       msg.guild?.roles.cache.find(
