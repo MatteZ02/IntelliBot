@@ -1,6 +1,6 @@
 import Discord from "discord.js";
 import admin from "firebase-admin";
-import Command from "./Command";
+import Command from "./command";
 import config from "../config/config";
 import * as serviceAccount from "../config/serviceAccount.json";
 

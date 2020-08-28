@@ -1,4 +1,4 @@
-import Command from "../controller/Command";
+import Command from "../controller/command";
 
 import kickCommand from "./kick";
 import BanComamnd from "./ban";
