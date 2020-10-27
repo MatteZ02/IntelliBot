@@ -24,7 +24,6 @@ export default async function messageHandler(
     try {
       command.execute(msg, args, client);
     } catch (error) {
-      msg.reply();
       const embed = new Discord.MessageEmbed()
         .setTitle(`Intellibot ${error.toString()}`)
         .setDescription(error.stack.replace(/at /g, "**at **"))
