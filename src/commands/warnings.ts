@@ -2,8 +2,8 @@ import Command from "../controller/command";
 import Client from "../controller/BaseClient";
 import Discord from "discord.js";
 
-const WarnCommand = new Command({
-  name: "warn",
+const WarningsCommand = new Command({
+  name: "warnings",
   execute: (msg: Discord.Message, args: Array<string>, client: Client) => {
     const user = msg.mentions.members?.first() ? msg.mentions.members?.first() : msg.member;
     if (
@@ -31,4 +31,4 @@ const WarnCommand = new Command({
   },
 });
 
-export default WarnCommand;
+export default WarningsCommand;
