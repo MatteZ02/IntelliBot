@@ -1,6 +1,7 @@
 package-lock.json
 /src/config/serviceAccount.json
 /src/config/serviceAccount.ts
+credentials
 build
 node_modules
 .env

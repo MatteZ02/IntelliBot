@@ -1,3 +1,4 @@
+import Discord from "discord.js";
 import Client, { MuteData, WarnData } from "../../controller/BaseClient";
 import logs from "../modules/logs";
 
@@ -15,15 +16,7 @@ export default async function readyHandler(client: Client) {
     });
   });
   console.log("Ready!");
-  client.user?.setPresence({
-    status: "dnd",
-    afk: true,
-    activity: {
-      name: "Musix Support",
-      type: "STREAMING",
-      url: "https://www.twitch.tv/musixdiscordbot",
-    },
-  });
+  client.user?.setPresence(client.config.presence as Discord.PresenceData);
   setInterval(function () {
     const timeDate = Date.now();
     client.global.db.mutes["users"].ids?.forEach((user) => {

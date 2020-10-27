@@ -13,7 +13,7 @@ npm install (idk how yarn works)
 Start in dev mode with npm run start:dev
 Start in production mode npm run start
 
-Be sure to fill out the requiered fields in .ENV_example and rename the file to .ENV
+Be sure to fill out the requiered fields in .env_example and rename the file to .env
 
 Also a google firebase is requiered! You will have to create your own cloud firestore and add serviceAccount.json to src/config!
 

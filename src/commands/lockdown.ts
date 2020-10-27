@@ -5,7 +5,7 @@ import Discord from "discord.js";
 const LockdownCommand = new Command({
   name: "lockdown",
   execute: (msg: Discord.Message, args: Array<String>, client: Client) => {
-    if (!msg.member?.roles.cache.has(client.config.roles.admin))
+    if (!msg.member?.roles.cache.has(client.config.roles.admin) && !msg.member?.roles.cache.has(client.config.roles.headmod))
       return msg.channel.send(
         "<:redx:674263474704220182> Insufficient permissions!"
       );

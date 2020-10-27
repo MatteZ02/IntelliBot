@@ -5,6 +5,7 @@ export default async (client: Client) => {
   const LogsChannel = client.channels.cache.get(
     client.config.logsChannel
   ) as Discord.TextChannel;
+  if (!LogsChannel) return console.log("No logs channel found. Logs disabled.");
 
   client.on("guildMemberAdd", async (member) => {
     let embed = new Discord.MessageEmbed()

@@ -1,22 +1,15 @@
 require("dotenv/config");
+import config from "./config.json";
+import presence from "./presence.json";
 
 export default {
-  prefix: "-",
+  prefix: config.prefix,
   token: process.env.TOKEN,
   databaseURL: process.env.DATABASE_URL,
-  channelWhitelist: [
-    "583601892257693746",
-    "700265375073304588",
-    "617633098296721409",
-    "704683075078193212",
-    "632266466707767309",
-    "633570377439903755",
-  ],
-  logsChannel: "714875827166380122",
-  roles: {
-    admin: "583600027403026432",
-    mod: "583601716088406017",
-    supportTeam: "608683224956272663",
-  },
+  channelWhitelist: config.channelWhilelist,
+  logsChannel: config.logsChannel,
+  serverLogs: config.serverLogs,
+  roles: config.roles,
   embedColor: "#82a1e1",
+  presence
 };

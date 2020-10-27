@@ -1,0 +1,13 @@
+{
+    "prefix": "-",
+    "channelWhilelist": [],
+    "roles": {
+        "admin": "",
+        "headmod": "",
+        "mod": "",
+        "supportTeam": "",
+        "trial": ""
+    },
+    "logsChannel": "",
+    "serverLogs": false
+}
