@@ -1,4 +1,4 @@
-import Discord, { PermissionString } from "discord.js";
+import Discord from "discord.js";
 import Client from "./BaseClient";
 
 interface CommandProps {
