@@ -7,13 +7,13 @@ const LockdownCommand = new Command({
   execute: (msg: Discord.Message, args: Array<String>, client: Client) => {
     if (!msg.member?.roles.cache.has(client.config.roles.admin) && !msg.member?.roles.cache.has(client.config.roles.headmod))
       return msg.channel.send(
-        "<:redx:674263474704220182> Insufficient permissions!"
+        ":x: Insufficient permissions!"
       );
     const channel = msg.channel as Discord.TextChannel;
     if (channel.topic?.includes("lockdown")) {
       channel.edit({ topic: channel.topic.replace("<lockdown>", "") });
       channel.lockPermissions();
-      channel.send("<:green_check_mark:674265384777416705> Lockdown lifted!");
+      channel.send(":white_check_mark: Lockdown lifted!");
     } else {
       channel.edit({ topic: channel.topic + "<lockdown>" });
       channel.overwritePermissions(
@@ -23,7 +23,7 @@ const LockdownCommand = new Command({
       channel.overwritePermissions([
         { id: "704681611035279371", deny: ["VIEW_CHANNEL"] },
       ]);
-      channel.send("<:green_check_mark:674265384777416705> Lockdown set!");
+      channel.send(":white_check_mark: Lockdown set!");
     }
   },
 });

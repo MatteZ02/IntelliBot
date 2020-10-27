@@ -13,14 +13,14 @@ const UnmuteCommand = new Command({
       !msg.member?.roles.cache.has(client.config.roles.trial)
     )
       return msg.channel.send(
-        "<:redx:674263474704220182> Insufficient permissions!"
+        ":x: Insufficient permissions!"
       );
     const user =
       msg.mentions.members?.first() ||
       msg.guild?.members.cache.get(args[1]?.toString());
     if (!user)
       return msg.channel.send(
-        "<:redx:674263474704220182> Please mention a member or provide an id!"
+        ":x: Please mention a member or provide an id!"
       );
     user.roles.remove("608365682291376128");
     const index = client.global.db.mutes.users.ids?.indexOf(user.id);
@@ -28,7 +28,7 @@ const UnmuteCommand = new Command({
     delete client.global.db.mutes[user.id];
     client.db.collection("mutes").doc(user.id).delete();
     msg.channel.send(
-      `<:green_check_mark:674265384777416705> Successfully unmuted ${user.user.tag}!`
+      `:white_check_mark: Successfully unmuted ${user.user.tag}!`
     );
   },
 });

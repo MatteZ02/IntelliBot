@@ -23,9 +23,9 @@ export default async function readyHandler(client: Client) {
       if (user === "users") return;
       if (client.global.db.mutes[user].time <= timeDate) {
         client.guilds.cache
-          .get("583597555095437312")
+          .get(client.config.guild)
           ?.members.cache.get(user)
-          ?.roles.remove("608365682291376128");
+          ?.roles.remove(client.config.roles.muted);
         const index = client.global.db.mutes.users.ids?.indexOf(user);
         client.global.db.mutes.users.ids?.splice(index!, 1);
         delete client.global.db.mutes[user];

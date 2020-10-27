@@ -1,13 +1,16 @@
 {
     "prefix": "-",
+    "guild": "",
     "channelWhilelist": [],
     "roles": {
         "admin": "",
         "headmod": "",
         "mod": "",
         "supportTeam": "",
-        "trial": ""
+        "trial": "",
+        "muted": ""
     },
     "logsChannel": "",
-    "serverLogs": false
+    "serverLogs": false,
+    "mutedRole": ""
 }

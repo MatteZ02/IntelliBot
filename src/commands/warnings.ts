@@ -15,16 +15,16 @@ const WarningsCommand = new Command({
     !msg.member?.roles.cache.has(client.config.roles.trial)
     )
       return msg.channel.send(
-        "<:redx:674263474704220182> Insufficient permissions!"
+        ":x: Insufficient permissions!"
       );
     if (!user)
-      return msg.channel.send("<:redx:674263474704220182> User not found!");
+      return msg.channel.send(":x: User not found!");
 
     const message = client.global.db.warnings["users"].ids?.includes(user.id) ?
     new Discord.MessageEmbed()
       .setAuthor(`${user.user.tag}`, user.user.displayAvatarURL())
       .setTitle(`Warnings for ${user.displayName}`)
-      .setDescription(`This use has **${client.global.db.warnings[user.id].warnings}** warnings!`)
+      .setDescription(`This user has **${client.global.db.warnings[user.id].warnings}** warnings!`)
       .setColor(0xecff00)
       : "This user has no warnings!"
     msg.channel.send(message);

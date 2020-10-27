@@ -74,9 +74,9 @@ export default async (client: Client) => {
         .filter((r) => !newMember.roles.cache.has(r.id))
         .map((e) => e);
       let embed;
-      if (role[0].id === "608365682291376128") {
+      if (role[0].id === client.config.roles.muted) {
         if (client.global.db.mutes["users"].ids?.includes(newMember.id))
-          return newMember.roles.add("608365682291376128");
+          return newMember.roles.add(client.config.roles.muted);
         embed = new Discord.MessageEmbed()
           .setAuthor(
             `${newMember.user?.tag}`,
@@ -106,7 +106,7 @@ export default async (client: Client) => {
         .filter((r) => !oldMember.roles.cache.has(r.id))
         .map((e) => e);
       let embed;
-      if (role[0].id === "608365682291376128") {
+      if (role[0].id === client.config.roles.muted) {
         embed = new Discord.MessageEmbed()
           .setAuthor(
             `${newMember.user?.tag}`,

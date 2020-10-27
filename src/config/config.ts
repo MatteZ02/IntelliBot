@@ -11,5 +11,6 @@ export default {
   serverLogs: config.serverLogs,
   roles: config.roles,
   embedColor: "#82a1e1",
+  guild: config.guild,
   presence
 };
