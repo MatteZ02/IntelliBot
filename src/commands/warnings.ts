@@ -31,7 +31,11 @@ const WarningsCommand = new Command({
             `This user has **${
               client.global.db.warnings[user.id].warnings.length
             }** warnings!\n${client.global.db.warnings[user.id].warnings.map(
-              (warning) => `${warning.reason}`
+              (warning) =>
+                `${
+                  client.global.db.warnings[user.id].warnings.indexOf(warning) +
+                  1
+                } - Reason: ${warning.reason} - Author: ${warning.author}`
             )}`
           )
           .setColor(0xecff00)

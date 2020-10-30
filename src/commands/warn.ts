@@ -25,7 +25,7 @@ const WarnCommand = new Command({
       client.global.db.warnings[user.id].warnings.push({
         reason: reason,
         author: msg.author.tag,
-        timestamp: Date.now(),
+        timestamp: Date.now().toLocaleString(),
       });
       client.global.db.warnings["users"].ids.push(user.id);
     } else {
@@ -35,13 +35,21 @@ const WarnCommand = new Command({
         .set({
           ids: null,
           warnings: [
-            { reason: reason, author: msg.author.tag, timestamp: Date.now() },
+            {
+              reason: reason,
+              author: msg.author.tag,
+              timestamp: Date.now().toLocaleString(),
+            },
           ],
         });
       client.global.db.warnings[user.id] = {
         ids: null,
         warnings: [
-          { reason: reason, author: msg.author.tag, timestamp: Date.now() },
+          {
+            reason: reason,
+            author: msg.author.tag,
+            timestamp: Date.now().toLocaleString(),
+          },
         ],
       };
       client.db.collection("mutes").doc("users").set({

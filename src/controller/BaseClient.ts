@@ -24,7 +24,7 @@ export interface MuteData {
 export interface Warning {
   reason: string;
   author: string;
-  timestamp: number;
+  timestamp: string;
 }
 
 export interface WarnData {
