@@ -1,16 +1,15 @@
 {
-    "prefix": "-",
-    "guild": "",
+    "prefix": "?",
+    "guild": "598122945604354053",
     "channelWhilelist": [],
     "roles": {
-        "admin": "",
+        "admin": "608179023939633162",
         "headmod": "",
-        "mod": "",
-        "supportTeam": "",
-        "trial": "",
-        "muted": ""
+        "mod": "757951463799521391",
+        "supportTeam": "770629338764279818",
+        "trial": "598665615389229057",
+        "muted": "762869364046561310"
     },
-    "logsChannel": "",
-    "serverLogs": false,
-    "mutedRole": ""
+    "logsChannel": "612706411641700353",
+    "serverLogs": false
 }

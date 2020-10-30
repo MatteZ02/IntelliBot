@@ -24,11 +24,8 @@ export default async function messageHandler(
     try {
       command.execute(msg, args, client);
     } catch (error) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle(`Intellibot ${error.toString()}`)
-        .setDescription(error.stack.replace(/at /g, "**at **"))
-        .setColor("#82a1e1");
-      msg.channel.send(embed);
+      msg.channel.send(`An error occured! \`${error}\``);
+      console.error(error);
     }
   }
 }

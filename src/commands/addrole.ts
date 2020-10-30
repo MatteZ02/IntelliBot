@@ -4,29 +4,31 @@ import Discord from "discord.js";
 
 const AddroleCommand = new Command({
   name: "addrole",
-  execute: (msg: Discord.Message, args: Array<string>, client: Client) => {
+  execute: async (
+    msg: Discord.Message,
+    args: Array<string>,
+    client: Client
+  ) => {
     if (!msg.member?.roles.cache.has(client.config.roles.admin))
-      return msg.channel.send(
-        ":x: Insufficient permissions!"
-      );
-    const user =
-      msg.mentions.members?.first() ||
-      msg.guild?.members.cache.get(args[1]?.toString());
-    if (!user)
-      return msg.channel.send(
-        ":x: Please mention a member or provide an id!"
-      );
+      return msg.channel.send(":x: Insufficient permissions!");
+    const user = await client.funcs.fetchMember(msg, args, false);
+    if (typeof user === "string") return msg.channel.send(user);
     if (!args[2])
-      return msg.channel.send(
-        ":x: Please provide a role name to search for!"
-      );
+      return msg.channel.send(":x: Please provide a role name to search for!");
     const role =
       msg.guild?.roles.cache.get(args[2]) ||
       msg.guild?.roles.cache.find(
         (role) => role.name.toLowerCase() === args[2].toLowerCase()
       );
-    if (!role)
-      return msg.channel.send(":x: Role not found!");
+    if (!role) return msg.channel.send(":x: Role not found!");
+    if (!role.editable)
+      return msg.channel.send(
+        ":x: That role is too powerful for me to manage."
+      );
+    if (role.position >= msg.member.roles.highest.position)
+      return msg.channel.send(
+        ":x: That role is higher or equal to your highest role."
+      );
     if (user.roles.cache.has(role.id))
       return msg.channel.send(
         `:x: ${user.user.tag} already has the ${role.name} role!`

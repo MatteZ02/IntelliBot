@@ -4,6 +4,8 @@ import Command from "./command";
 import config from "../config/config";
 import * as serviceAccount from "../config/serviceAccount.json";
 
+import fetchMember from "../functions/funcs/fetchMember";
+
 const gatewayIntents = new Discord.Intents();
 gatewayIntents.add(
   1 << 0, // GUILDS
@@ -19,9 +21,15 @@ export interface MuteData {
   mutedFor: number;
 }
 
+export interface Warning {
+  reason: string;
+  author: string;
+  timestamp: number;
+}
+
 export interface WarnData {
   ids: Array<string> | null;
-  warnings: number;
+  warnings: Array<Warning>;
 }
 
 class Client extends Discord.Client {
@@ -35,9 +43,10 @@ class Client extends Discord.Client {
       };
     };
   };
-  public db: FirebaseFirestore.Firestore;
-  public config = config;
-  public commands: Discord.Collection<string, Command>;
+  readonly db: FirebaseFirestore.Firestore;
+  readonly config = config;
+  readonly commands: Discord.Collection<string, Command>;
+  readonly funcs: { [functionName: string]: Function };
   constructor(
     public commandInfo: {
       commands: Discord.Collection<string, Command>;
@@ -58,6 +67,9 @@ class Client extends Discord.Client {
     this.commands = commandInfo.commands;
     this.global = {
       db: { mutes: {}, warnings: {} },
+    };
+    this.funcs = {
+      fetchMember,
     };
   }
   async getDB(collection: string) {

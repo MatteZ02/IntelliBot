@@ -4,7 +4,11 @@ import Discord from "discord.js";
 
 const UnmuteCommand = new Command({
   name: "unmute",
-  execute: (msg: Discord.Message, args: Array<String>, client: Client) => {
+  execute: async (
+    msg: Discord.Message,
+    args: Array<String>,
+    client: Client
+  ) => {
     if (
       !msg.member?.roles.cache.has(client.config.roles.admin) &&
       !msg.member?.roles.cache.has(client.config.roles.headmod) &&
@@ -12,16 +16,9 @@ const UnmuteCommand = new Command({
       !msg.member?.roles.cache.has(client.config.roles.supportTeam) &&
       !msg.member?.roles.cache.has(client.config.roles.trial)
     )
-      return msg.channel.send(
-        ":x: Insufficient permissions!"
-      );
-    const user =
-      msg.mentions.members?.first() ||
-      msg.guild?.members.cache.get(args[1]?.toString());
-    if (!user)
-      return msg.channel.send(
-        ":x: Please mention a member or provide an id!"
-      );
+      return msg.channel.send(":x: Insufficient permissions!");
+    const user = await client.funcs.fetchMember(msg, args, false);
+    if (typeof user === "string") return msg.channel.send(user);
     user.roles.remove("608365682291376128");
     const index = client.global.db.mutes.users.ids?.indexOf(user.id);
     client.global.db.mutes.users.ids?.splice(index!, 1);

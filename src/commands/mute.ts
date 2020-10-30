@@ -4,7 +4,11 @@ import Discord from "discord.js";
 
 const MuteCommand = new Command({
   name: "mute",
-  execute: (msg: Discord.Message, args: Array<String>, client: Client) => {
+  execute: async (
+    msg: Discord.Message,
+    args: Array<String>,
+    client: Client
+  ) => {
     if (
       !msg.member?.roles.cache.has(client.config.roles.admin) &&
       !msg.member?.roles.cache.has(client.config.roles.headmod) &&
@@ -12,26 +16,14 @@ const MuteCommand = new Command({
       !msg.member?.roles.cache.has(client.config.roles.supportTeam) &&
       !msg.member?.roles.cache.has(client.config.roles.trial)
     )
-      return msg.channel.send(
-        ":x: Insufficient permissions!"
-      );
-    const user =
-      msg.mentions.members?.first() ||
-      msg.guild?.members.cache.get(args[1]?.toString());
-    if (!user)
-      return msg.channel.send(
-        ":x: Please mention a member or provide an id!"
-      );
+      return msg.channel.send(":x: Insufficient permissions!");
+    const user = await client.funcs.fetchMember(msg, args, true);
+    if (typeof user === "string") return msg.channel.send(user);
     const time = parseFloat(args[2]?.toString());
     if (!time || isNaN(time))
-      return msg.channel.send(
-        ":x: Please provide a time in __hours__!"
-      );
+      return msg.channel.send(":x: Please provide a time in __hours__!");
     const reason = args.slice(3).join(" ");
-    if (!reason)
-      return msg.channel.send(
-        ":x: Please provide a reason!"
-      );
+    if (!reason) return msg.channel.send(":x: Please provide a reason!");
     user.roles.add("608365682291376128");
     const timeDate = Date.now() + time * 3600000;
     client.db.collection("mutes").doc(user.id).set({

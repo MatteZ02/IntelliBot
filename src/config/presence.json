@@ -2,8 +2,8 @@
     "status": "dnd",
     "afk": true,
     "activity": {
-      "name": "Presence name",
-      "type": "STREAMING",
-      "url": "Presence url"
+      "name": "CTK's server",
+      "type": "WATCHING",
+      "url": "https://www.youtube.com/channel/UClAFgotVhZ1DGvN57EMY7fA"
     }
 }

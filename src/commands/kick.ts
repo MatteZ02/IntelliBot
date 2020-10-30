@@ -4,38 +4,28 @@ import Discord from "discord.js";
 
 const KickCommand = new Command({
   name: "kick",
-  execute: (msg: Discord.Message, args: Array<String>, client: Client) => {
+  execute: async (
+    msg: Discord.Message,
+    args: Array<String>,
+    client: Client
+  ) => {
     if (
       !msg.member?.roles.cache.has(client.config.roles.admin) &&
       !msg.member?.roles.cache.has(client.config.roles.headmod) &&
       !msg.member?.roles.cache.has(client.config.roles.mod)
     )
-      return msg.channel.send(
-        ":x: Insufficient permissions!"
-      );
-    const user =
-      msg.mentions.members?.first() ||
-      msg.guild?.members.cache.get(args[1]?.toString());
-    if (!user)
-      return msg.channel.send(
-        ":x: Please mention a member or provide an id!"
-      );
+      return msg.channel.send(":x: Insufficient permissions!");
+    const user = await client.funcs.fetchMember(msg, args, true);
+    if (typeof user === "string") return msg.channel.send(user);
     const reason = args.slice(2).join(" ");
-    if (!reason)
-      return msg.channel.send(
-        ":x: Please provide a reason!"
-      );
+    if (!reason) return msg.channel.send(":x: Please provide a reason!");
     if (!user?.kickable)
-      return msg.channel.send(
-        ":x: I cannot kick this person!"
-      );
+      return msg.channel.send(":x: I cannot kick this person!");
     if (
       user?.roles.highest.position! >= msg.member.roles.highest.position &&
       msg.member.id !== msg.guild?.owner?.id
     )
-      return msg.channel.send(
-        ":x: You cannot kick this person!"
-      );
+      return msg.channel.send(":x: You cannot kick this person!");
     const LogsChannel = client.channels.cache.get(
       client.config.logsChannel
     ) as Discord.TextChannel;
