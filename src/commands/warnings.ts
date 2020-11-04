@@ -36,7 +36,7 @@ const WarningsCommand = new Command({
                   client.global.db.warnings[user.id].warnings.indexOf(warning) +
                   1
                 } - Reason: ${warning.reason} - Author: ${warning.author}`
-            )}`
+            ).join("\n")}`
           )
           .setColor(0xecff00)
       : "This user has no warnings!";
