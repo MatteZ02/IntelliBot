@@ -8,6 +8,8 @@ export default async (client: Client) => {
   if (!LogsChannel) return console.log("No logs channel found. Logs disabled.");
 
   client.on("guildMemberAdd", async (member) => {
+    if (client.global.db.mutes["users"].ids?.includes(member.id))
+      member.roles.add(client.config.roles.muted);
     let embed = new Discord.MessageEmbed()
       .setAuthor(`Member Joined`, member.user?.displayAvatarURL())
       .setDescription(`${member}\n${member.user?.tag}`)
@@ -105,32 +107,12 @@ export default async (client: Client) => {
       let role = newMember.roles.cache
         .filter((r) => !oldMember.roles.cache.has(r.id))
         .map((e) => e);
-      let embed;
-      if (role[0].id === client.config.roles.muted) {
-        embed = new Discord.MessageEmbed()
-          .setAuthor(
-            `${newMember.user?.tag}`,
-            newMember.user?.displayAvatarURL()
-          )
-          .setDescription(
-            `${newMember} was muted!\nReason: ${
-              client.global.db.mutes[newMember.id].reason
-            }\nTime: ${client.global.db.mutes[newMember.id].mutedFor}`
-          )
-          .setTimestamp()
-          .setColor("#4F545C")
-          .setFooter(`ID: ${newMember.id}`, client.user?.displayAvatarURL());
-        return LogsChannel.send(embed);
-      } else
-        embed = new Discord.MessageEmbed()
-          .setAuthor(
-            `${newMember.user?.tag}`,
-            newMember.user?.displayAvatarURL()
-          )
-          .setDescription(`${newMember} was given the \`${role[0].name}\` role`)
-          .setTimestamp()
-          .setColor(0x23ff00)
-          .setFooter(`ID: ${newMember.id}`, client.user?.displayAvatarURL());
+      const embed = new Discord.MessageEmbed()
+        .setAuthor(`${newMember.user?.tag}`, newMember.user?.displayAvatarURL())
+        .setDescription(`${newMember} was given the \`${role[0].name}\` role`)
+        .setTimestamp()
+        .setColor(0x23ff00)
+        .setFooter(`ID: ${newMember.id}`, client.user?.displayAvatarURL());
       return LogsChannel.send(embed);
     }
     if (oldMember.nickname !== newMember.nickname) {

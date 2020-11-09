@@ -24,7 +24,7 @@ const MuteCommand = new Command({
       return msg.channel.send(":x: Please provide a time in __hours__!");
     const reason = args.slice(3).join(" ");
     if (!reason) return msg.channel.send(":x: Please provide a reason!");
-    user.roles.add("608365682291376128");
+    user.roles.add(client.config.roles.muted);
     const timeDate = Date.now() + time * 3600000;
     client.db.collection("mutes").doc(user.id).set({
       ids: null,
@@ -45,6 +45,20 @@ const MuteCommand = new Command({
     msg.channel.send(
       `:white_check_mark: Successfully muted ${user.user.tag} for ${time} hours with reason "${reason}"`
     );
+    const LogsChannel = client.channels.cache.get(
+      client.config.logsChannel
+    ) as Discord.TextChannel;
+    const embed = new Discord.MessageEmbed()
+      .setAuthor(`${user.user?.tag}`, user.user?.displayAvatarURL())
+      .setDescription(
+        `${user} was muted!\nReason: ${
+          client.global.db.mutes[user.id].reason
+        }\nTime: ${client.global.db.mutes[user.id].mutedFor}`
+      )
+      .setTimestamp()
+      .setColor("#4F545C")
+      .setFooter(`ID: ${user.id}`, client.user?.displayAvatarURL());
+    LogsChannel.send(embed);
   },
 });
 

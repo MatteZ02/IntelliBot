@@ -19,11 +19,11 @@ const UnmuteCommand = new Command({
       return msg.channel.send(":x: Insufficient permissions!");
     const user = await client.funcs.fetchMember(msg, args, false);
     if (typeof user === "string") return msg.channel.send(user);
-    user.roles.remove("608365682291376128");
     const index = client.global.db.mutes.users.ids?.indexOf(user.id);
-    client.global.db.mutes.users.ids?.splice(index!, 1);
+    client.global.db.mutes["users"].ids?.splice(index!, 1);
     delete client.global.db.mutes[user.id];
     client.db.collection("mutes").doc(user.id).delete();
+    user.roles.remove(client.config.roles.muted);
     msg.channel.send(
       `:white_check_mark: Successfully unmuted ${user.user.tag}!`
     );
