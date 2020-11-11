@@ -4,11 +4,16 @@ import Discord from "discord.js";
 
 const PurgeComamnd = new Command({
   name: "purge",
-  execute: async (msg: Discord.Message, args: Array<String>, client: Client) => {
-    if (!msg.member?.roles.cache.has(client.config.roles.admin))
-      return msg.channel.send(
-        ":x: Insufficient permissions!"
-      );
+  execute: async (
+    msg: Discord.Message,
+    args: Array<String>,
+    client: Client
+  ) => {
+    if (
+      !msg.member?.roles.cache.has(client.config.roles.admin) &&
+      !msg.member?.roles.cache.has(client.config.roles.headmod)
+    )
+      return msg.channel.send(":x: Insufficient permissions!");
     const oldChannel = msg.channel as Discord.TextChannel;
     const newChannel = await oldChannel.clone();
     oldChannel.delete();

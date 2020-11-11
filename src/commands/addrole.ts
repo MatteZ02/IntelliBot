@@ -9,7 +9,10 @@ const AddroleCommand = new Command({
     args: Array<string>,
     client: Client
   ) => {
-    if (!msg.member?.roles.cache.has(client.config.roles.admin))
+    if (
+      !msg.member?.roles.cache.has(client.config.roles.admin) &&
+      !msg.member?.roles.cache.has(client.config.roles.headmod)
+    )
       return msg.channel.send(":x: Insufficient permissions!");
     const user = await client.funcs.fetchMember(msg, args, false);
     if (typeof user === "string") return msg.channel.send(user);

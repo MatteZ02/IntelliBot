@@ -5,7 +5,10 @@ import Discord from "discord.js";
 const RemoveroleCommand = new Command({
   name: "removerole",
   execute: (msg: Discord.Message, args: Array<string>, client: Client) => {
-    if (!msg.member?.roles.cache.has(client.config.roles.admin))
+    if (
+      !msg.member?.roles.cache.has(client.config.roles.admin) &&
+      !msg.member?.roles.cache.has(client.config.roles.headmod)
+    )
       return msg.channel.send(":x: Insufficient permissions!");
     const user =
       msg.mentions.members?.first() ||
