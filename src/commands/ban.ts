@@ -6,7 +6,7 @@ const BanCommand = new Command({
   name: "ban",
   execute: async (
     msg: Discord.Message,
-    args: Array<String>,
+    args: Array<string>,
     client: Client
   ) => {
     if (

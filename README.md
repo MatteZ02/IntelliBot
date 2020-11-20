@@ -19,8 +19,8 @@ Also a google firebase is requiered! You will have to create your own cloud fire
 
 ### Database
 
-The database is used to store all mutes in case of a restart for now!
+The database is used to store all mutes, warns and tempbans in case of a restart for now!
 
-Create a collection called "mutes".
+Create a collection called "mutes" (Repeat this process for "mutes", "bans" and "warnings").
 Under that collection create a document called "users".
 Under that document create a field called "ids" as a type Array.

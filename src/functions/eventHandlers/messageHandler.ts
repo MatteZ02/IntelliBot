@@ -4,7 +4,7 @@ import Client from "../../controller/BaseClient";
 export default async function messageHandler(
   msg: Discord.Message,
   client: Client
-) {
+): Promise<void> {
   const args = msg.content.slice(client.config.prefix.length).split(" ");
   if (!msg.guild || !msg.member) return;
   const prefix = client.config.prefix;

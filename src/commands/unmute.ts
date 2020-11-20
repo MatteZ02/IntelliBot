@@ -6,7 +6,7 @@ const UnmuteCommand = new Command({
   name: "unmute",
   execute: async (
     msg: Discord.Message,
-    args: Array<String>,
+    args: Array<string>,
     client: Client
   ) => {
     if (
@@ -19,7 +19,7 @@ const UnmuteCommand = new Command({
       return msg.channel.send(":x: Insufficient permissions!");
     const user = await client.funcs.fetchMember(msg, args, false);
     if (typeof user === "string") return msg.channel.send(user);
-    const index = client.global.db.mutes.users.ids?.indexOf(user.id);
+    const index = client.global.db.mutes["users"].ids?.indexOf(user.id);
     client.global.db.mutes["users"].ids?.splice(index!, 1);
     delete client.global.db.mutes[user.id];
     client.db.collection("mutes").doc(user.id).delete();

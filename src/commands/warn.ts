@@ -25,9 +25,8 @@ const WarnCommand = new Command({
       client.global.db.warnings[user.id].warnings.push({
         reason: reason,
         author: msg.author.tag,
-        timestamp: Date.now().toLocaleString(),
+        timestamp: Date.now(),
       });
-      client.global.db.warnings["users"].ids.push(user.id);
     } else {
       client.db
         .collection("warnings")
@@ -38,7 +37,7 @@ const WarnCommand = new Command({
             {
               reason: reason,
               author: msg.author.tag,
-              timestamp: Date.now().toLocaleString(),
+              timestamp: Date.now(),
             },
           ],
         });
@@ -48,7 +47,7 @@ const WarnCommand = new Command({
           {
             reason: reason,
             author: msg.author.tag,
-            timestamp: Date.now().toLocaleString(),
+            timestamp: Date.now(),
           },
         ],
       };
@@ -62,7 +61,7 @@ const WarnCommand = new Command({
       .setTitle("An user was warned!")
       .setDescription(
         `${user.user.tag} was warned for ${reason}\nThis user has ${
-          client.global.db.warnings[user.id].warnings
+          client.global.db.warnings[user.id].warnings.length
         } warnings!`
       )
       .setTimestamp()
