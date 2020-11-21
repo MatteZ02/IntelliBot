@@ -19,13 +19,17 @@ const DelwarnCommand = new Command({
       return msg.channel.send(":x: Insufficient permissions!");
     const user = await client.funcs.fetchMember(msg, args, true);
     if (typeof user === "string") return msg.channel.send(user);
+    if (!args[2])
+      return msg.channel.send(
+        ":x: Please enter the index to remove warning from!"
+      );
+    const index = parseInt(args[2]);
+    if (isNaN(index))
+      return msg.channel.send(":x: Please enter a valid number!");
     if (!client.global.db.warnings["users"].ids?.includes(user.id))
       return msg.channel.send(":x: That user has no warnings!");
 
-    client.global.db.warnings[user.id].warnings.splice(
-      parseInt(args[2]) - 1,
-      1
-    );
+    client.global.db.warnings[user.id].warnings.splice(index - 1, 1);
 
     if (client.global.db.warnings[user.id].warnings.length == 0) {
       const index = client.global.db.warnings["users"].ids?.indexOf(user.id);
@@ -35,7 +39,7 @@ const DelwarnCommand = new Command({
     }
 
     msg.channel.send(
-      `:white_check_mark: Removed warning ${args[2]} from ${user.user.tag}!`
+      `:white_check_mark: Removed warning ${index} from ${user.user.tag}!`
     );
   },
 });
