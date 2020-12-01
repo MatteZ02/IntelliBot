@@ -9,16 +9,14 @@ const WarningsCommand = new Command({
     args: Array<string>,
     client: Client
   ) => {
+    if (!msg.member) return;
+
     const user = (await client.funcs.fetchMember(msg, args, false))
       ? await client.funcs.fetchMember(msg, args, false)
       : msg.member;
     if (
       user != msg.member &&
-      !msg.member?.roles.cache.has(client.config.roles.admin) &&
-      !msg.member?.roles.cache.has(client.config.roles.headmod) &&
-      !msg.member?.roles.cache.has(client.config.roles.mod) &&
-      !msg.member?.roles.cache.has(client.config.roles.supportTeam) &&
-      !msg.member?.roles.cache.has(client.config.roles.trial)
+      !(await client.funcs.checkPerms(client, msg.member, "helper"))
     )
       return msg.channel.send(":x: Insufficient permissions!");
     if (typeof user === "string") return msg.channel.send(user);

@@ -4,6 +4,7 @@ import Command from "./command";
 import config from "../config/config";
 import * as serviceAccount from "../config/serviceAccount.json";
 
+import checkPerms from "../functions/funcs/checkPerms";
 import fetchMember from "../functions/funcs/fetchMember";
 
 const gatewayIntents = new Discord.Intents();
@@ -37,6 +38,7 @@ export interface WarnData {
 }
 
 interface funcs {
+  checkPerms: typeof checkPerms;
   fetchMember: typeof fetchMember;
 }
 
@@ -80,6 +82,7 @@ class Client extends Discord.Client {
       db: { mutes: {}, warnings: {}, bans: {} },
     };
     this.funcs = {
+      checkPerms,
       fetchMember,
     };
   }

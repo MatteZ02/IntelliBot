@@ -9,13 +9,8 @@ const UnmuteCommand = new Command({
     args: Array<string>,
     client: Client
   ) => {
-    if (
-      !msg.member?.roles.cache.has(client.config.roles.admin) &&
-      !msg.member?.roles.cache.has(client.config.roles.headmod) &&
-      !msg.member?.roles.cache.has(client.config.roles.mod) &&
-      !msg.member?.roles.cache.has(client.config.roles.supportTeam) &&
-      !msg.member?.roles.cache.has(client.config.roles.trial)
-    )
+    if (!msg.member) return;
+    if (!(await client.funcs.checkPerms(client, msg.member, "support")))
       return msg.channel.send(":x: Insufficient permissions!");
     const user = await client.funcs.fetchMember(msg, args, false);
     if (typeof user === "string") return msg.channel.send(user);

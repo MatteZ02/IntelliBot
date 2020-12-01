@@ -9,10 +9,8 @@ const PurgeComamnd = new Command({
     args: Array<String>,
     client: Client
   ) => {
-    if (
-      !msg.member?.roles.cache.has(client.config.roles.admin) &&
-      !msg.member?.roles.cache.has(client.config.roles.headmod)
-    )
+    if (!msg.member) return;
+    if (!(await client.funcs.checkPerms(client, msg.member, "admin")))
       return msg.channel.send(":x: Insufficient permissions!");
     const oldChannel = msg.channel as Discord.TextChannel;
     const newChannel = await oldChannel.clone();

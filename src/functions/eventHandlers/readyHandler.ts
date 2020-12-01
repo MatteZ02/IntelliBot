@@ -75,6 +75,6 @@ export default async function readyHandler(client: Client): Promise<void> {
         .doc(id)
         .set(client.global.db.warnings[id]);
     });
-  }, 60000);
+  }, 1800000);
   logs(client);
 }

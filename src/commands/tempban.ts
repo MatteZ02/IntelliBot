@@ -10,11 +10,8 @@ const TempbanCommand = new Command({
     args: Array<string>,
     client: Client
   ) => {
-    if (
-      !msg.member?.roles.cache.has(client.config.roles.admin) &&
-      !msg.member?.roles.cache.has(client.config.roles.headmod) &&
-      !msg.member?.roles.cache.has(client.config.roles.mod)
-    )
+    if (!msg.member) return;
+    if (!(await client.funcs.checkPerms(client, msg.member, "mod")))
       return msg.channel.send(":x: Insufficient permissions!");
     const user = await client.funcs.fetchMember(msg, args, true);
     if (typeof user === "string") return msg.channel.send(user);
