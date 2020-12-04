@@ -6,10 +6,10 @@ export default async function (
   member: Discord.GuildMember,
   permissions: "admin" | "mod" | "support" | "helper"
 ): Promise<boolean> {
-  return new Promise((resolve) => {
+  return new Promise((resolvePromise) => {
     let found = false;
     const pass = () => {
-      resolve(true);
+      resolvePromise(true);
       found = true;
     };
     switch (permissions) {
@@ -51,9 +51,9 @@ export default async function (
         break;
 
       default:
-        resolve(false);
+        resolvePromise(false);
         break;
     }
-    if (!found) resolve(false);
+    if (!found) resolvePromise(false);
   });
 }
