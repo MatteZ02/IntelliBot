@@ -1,35 +1,37 @@
-import Command from "../controller/command";
-import Client from "../controller/BaseClient";
-import Discord, { Collection, Snowflake, Message } from "discord.js";
+import Command from "../struct/classes/Command";
+import Client from "../base/Client";
+import Discord from "discord.js";
 
-const DeleteCommand = new Command({
-  name: "delete",
-  execute: async (
-    msg: Discord.Message,
-    args: Array<String>,
-    client: Client
-  ) => {
-    if (!msg.member) return;
-    if (!(await client.funcs.checkPerms(client, msg.member, "support")))
-      return msg.channel.send(":x: Insufficient permissions!");
-    if (!args[1])
-      return msg.channel.send(
-        ":x: Please provide a number to indicate the amount of messages to delete!"
-      );
-    const amount = parseInt(args[1].toString()) + 1;
-    if (isNaN(amount))
-      return msg.channel.send(":x: Please enter a valid __number__!");
-    const channel = msg.channel as Discord.TextChannel;
-    channel
-      .bulkDelete(amount, true)
-      .then((messages: Collection<Snowflake, Message>) =>
-        msg.channel
-          .send(
-            `:white_check_mark: Successfully deleted ${messages.size} messages!`
-          )
-          .then((message) => message.delete({ timeout: 5000 }))
-      );
-  },
+const deleteCommand = new Command({
+    name: "delete",
+    permissions: {
+        admin: true,
+        mod: true,
+        support: true
+    },
+    data: {
+        name: "delete",
+        description: "delete messages",
+
+        options: [
+            {
+                name: "amount",
+                description: "amount of messages to delete",
+                type: 4,
+                required: true
+            }
+        ]
+    },
+    execute: async (interaction: Discord.Interaction, client: Client) => {
+        interaction.channel
+            .bulkDelete((interaction.options || [{ value: 0 }])[0].value as number, true)
+            .then(messages =>
+                interaction.reply(
+                    `:white_check_mark: Successfully deleted ${messages.size} messages!`,
+                    true
+                )
+            );
+    }
 });
 
-export default DeleteCommand;
+export default deleteCommand;

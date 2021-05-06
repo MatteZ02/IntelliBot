@@ -1,0 +1,9 @@
+{
+  "status": "dnd",
+  "afk": true,
+  "activity": {
+    "name": "Presence name",
+    "type": "STREAMING",
+    "url": "Presence url"
+  }
+}
